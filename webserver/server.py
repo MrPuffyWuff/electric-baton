@@ -1,6 +1,8 @@
 from flask import Flask
 app = Flask(__name__)
 
+#Boo
+
 @app.route("/")
 @app.route("/home")
 def index():
