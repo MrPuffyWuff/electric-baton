@@ -1,12 +1,12 @@
 # import required libraries
+import pydub
 from pydub import AudioSegment 
 from pydub.playback import play 
+import simpleaudio as sa
+import librosa
+from glob import glob
+import IPython.display as ipd          
 
-# Import an audio file 
-# Format parameter only
-# for readability 
-wav_file = AudioSegment.from_file(file = "Sample.wav",     
-                                     format = "wav") 
+open(r'H:\My Drive\electric-baton\music_player\music')
 
-# Play the audio file
-play(wav_file)       
+#H:\My Drive\electric-baton\music_player\test.py
