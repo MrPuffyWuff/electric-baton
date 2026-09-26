@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+        <h1>Home Page</h1>
+        <p>Cool home page with an audio file input and wt not</p>
+
+        {% for post in posts %}
+            <h2>{{post.title}}</h2>
+            <p>By {{post.author}}</p>
+            <p>{{post.content}}</p>
+            <p>Date: {{post.date_posted}}</p>
+        {% endfor %}
+    </body>
+</html>
