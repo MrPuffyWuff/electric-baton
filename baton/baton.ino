@@ -21,14 +21,16 @@ void setup() {
 void loop() {
   //Note, velocity, channel
   MIDI.sendNoteOn(80, 127, 1);
-  delay(1000);
+  delay(20);
 }
 
+//On disconnect for some reason???
 void onConnected() {
-  digitalWrite(LED_BUILTIN, HIGH);
+  digitalWrite(LED_BUILTIN, LOW);
   Serial.println(1);
 }
+//On connect for some reason???
 void onDisconnected() {
-  digitalWrite(LED_BUILTIN, LOW);
+  digitalWrite(LED_BUILTIN, HIGH);
   Serial.println(0);
 }
