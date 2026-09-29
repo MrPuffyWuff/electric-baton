@@ -1,19 +1,34 @@
-#include <Arduino.h>
-#include <BLEMidi.h>
+#include <BLEMIDI_Transport.h>
+#include <hardware/BLEMIDI_ESP32.h>
+
+//Default has generic name
+//Create has custom name
+//BLEMIDI_CREATE_DEFAULT_INSTANCE()
+BLEMIDI_CREATE_INSTANCE("ELECTRIC_BATON", MIDI)
 
 void setup() {
   Serial.begin(115200);
-  Serial.println("Initializing bluetooth");
-  BLEMidiServer.begin("Basic MIDI device");
-  Serial.println("Waiting for connections...");
-  BLEMidiServer.enableDebugging();  // Uncomment if you want to see some debugging output from the library
+
+  pinMode(LED_BUILTIN, OUTPUT);
+  digitalWrite(LED_BUILTIN, LOW);
+
+  BLEMIDI.setHandleConnected(onConnected);
+  BLEMIDI.setHandleDisconnected(onDisconnected);
+
+  MIDI.begin();
 }
 
 void loop() {
-  if(BLEMidiServer.isConnected()) {             // If we've got a connection, we send an A4 during one second, at full velocity (127)
-      BLEMidiServer.noteOn(0, 69, 127);
-      delay(1000);
-      BLEMidiServer.noteOff(0, 69, 127);        // Then we stop the note and make a delay of one second before returning to the beginning of the loop
-      delay(1000);
-  }
+  //Note, velocity, channel
+  MIDI.sendNoteOn(80, 127, 1);
+  delay(1000);
+}
+
+void onConnected() {
+  digitalWrite(LED_BUILTIN, HIGH);
+  Serial.println(1);
+}
+void onDisconnected() {
+  digitalWrite(LED_BUILTIN, LOW);
+  Serial.println(0);
 }
