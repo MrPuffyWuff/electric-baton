@@ -1,29 +1,33 @@
-#include "bits/stdc++.h"
+#include <iostream>
+#include <vector>
 using namespace std;
-vector<float> step1(vector<float> accel, vector<float> times){
-    vector<float> changeTimes ={}
+vector<int> step1(vector<float> accel, vector<float> times){
+    vector<int> changeTimesI ={};
     for(int i = 0; i<accel.size()-1; i++){
 	    if(accel[i]>0 && accel[i+1] <0){ // if current >0 and next<0
-		    changeTimes.push_back(times[i]); // add time to changeTimes
+		    changeTimesI.push_back(i); // add time to changeTimes
         }
-    {
-    return changeTimes;
+    }
+    return changeTimesI;
 }
 
-// C++ program for the above approach
+vector<int> step2(vector<float> accel, vector<float> times, vector<int>changeTimesI){
+    vector<int> indexesOfMaxes ={};
+    for(int i = 0; i<changeTimesI.size()-1;i++){
+        vector<float> slice = step2Slice(accel, changeTimesI[i], changeTimesI[i+1]);
+        int maxIndexForSlice = step2Max(slice);
+        indexesOfMaxes.push_back(maxIndexForSlice+changeTimesI[i]);
+    }
+    return indexesOfMaxes;
+}
 
-// Function to slice a given vector
-// from range X to Y
-vector<int> slicing(vector<int>& arr,
-                    int X, int Y)
-{
-
-    // Starting and Ending iterators
-    auto start = arr.begin() + X;
-    auto end = arr.begin() + Y + 1;
+vector<float> step2Slice(vector<float> accel, int s, int e){ //s=start index, e=end index
+     // Starting and Ending iterators
+    auto start = accel.begin() + s;
+    auto end = accel.begin() + e + 1;
 
     // To store the sliced vector
-    vector<int> result(Y - X + 1);
+    vector<float> result(e - s + 1);
 
     // Copy vector using copy function()
     copy(start, end, result.begin());
@@ -32,33 +36,46 @@ vector<int> slicing(vector<int>& arr,
     return result;
 }
 
-// Function to print the vector ans
-void printResult(vector<int>& ans)
-{
-
-    // Traverse the vector ans
-    for (auto& it : ans) {
-
-        // Print elements
-        cout << it << ' ';
+int step2Max(vector<float> slice){
+    float max = 0.00;
+    int maxIndex = 0;
+    for(int i =2; i<slice.size(); i++){
+        float val = slice[i];
+        if(val>max){
+            max = val;
+            maxIndex = i;
+        }
     }
+    return maxIndex;
 }
 
-// Driver Code
-int main()
-{
-
-    // Given vector
-    vector<int> arr = { 1, 3, 4, 2,
-                        4, 2, 1 };
-
-    // Given range
-    int X = 2, Y = 5;
-
-    // Function Call
-    vector<int> ans;
-    ans = slicing(arr, X, Y);
-
-    // Print the sliced vector
-    printResult(ans);
+vector<float> step3(vector<int> indexesOfMaxes, vector<float> times){
+    vector<float> maxTimes = {};
+    for(int i = 0; i<indexesOfMaxes.size(); i++){
+        int index = indexesOfMaxes[i];
+        maxTimes.push_back(times[index]);
+    }
+    vector<float> intervals = {};
+    for (int i = 0; i<maxTimes.size()-1; i++){
+        float interval = maxTimes[i+1] - maxTimes[i];
+        intervals.push_back(interval);
+    }
+    return intervals;
 }
+
+float step4(vector<float> intervals){
+    float sum = 0;
+    for(int i = 0; i<intervals.size();i++){
+        sum+=intervals[i];
+    }
+    float avg = sum/intervals.size();
+    return avg;
+}
+
+float step5(float avg){
+    return 60/avg;
+}
+
+
+
+
