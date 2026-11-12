@@ -1,3 +1,11 @@
+#include <vector>
+using std::vector;
+void setup(){
+
+}
+void loop(){
+
+}
 vector<int> step1(vector<double> accel, vector<double> times){
     vector<int> changeTimesI ={};
     for(int i = 0; i<accel.size()-1; i++){
