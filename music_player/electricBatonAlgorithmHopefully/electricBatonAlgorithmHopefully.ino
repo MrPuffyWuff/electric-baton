@@ -9,7 +9,7 @@ void loop(){
 vector<int> step1(vector<double> accel, vector<double> times){
     vector<int> changeTimesI ={};
     for(int i = 0; i<accel.size()-1; i++){
-	    if(accel[i]>0 && accel[i+1] <0){ // if current >0 and next<0
+	    if(accel[i]>9.8 && accel[i+1] <9.8){ // if current >0 and next<0
 		    changeTimesI.push_back(i); // add time to changeTimes
         }
     }
