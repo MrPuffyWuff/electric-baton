@@ -6,6 +6,13 @@ void setup(){
 void loop(){
 
 }
+double speed(vector<double> accel, vector<double> times){
+    vector<int> changeTimesI = step1(accel, times);
+    vector<int> indexesOfMaxes = step2(accel, times, changeTimesI);
+    vector<double> intervals = step3(indexesOfMaxes, times);
+    double avg = step4(intervals);
+    double avg2 = step5(avg);
+}
 vector<int> step1(vector<double> accel, vector<double> times){
     vector<int> changeTimesI ={};
     for(int i = 0; i<accel.size()-1; i++){
