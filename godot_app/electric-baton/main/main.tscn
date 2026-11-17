@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://b4a6o5syd6jxb"]
+
+[ext_resource type="Script" uid="uid://d14ym7ejgvfq8" path="res://main/main.gd" id="1_53q0u"]
+
+[sub_resource type="AudioStreamGenerator" id="AudioStreamGenerator_377x3"]
+
+[node name="Main" type="Node2D" unique_id=1433131355]
+script = ExtResource("1_53q0u")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=129629875]
+stream = SubResource("AudioStreamGenerator_377x3")

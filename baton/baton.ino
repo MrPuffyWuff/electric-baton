@@ -110,12 +110,10 @@ void setup() {
   /* Optional: Display current status */
   displaySensorStatus();
   bno.setExtCrystalUse(true);
+  Serial.println("Setup Done");
 }
 
-void loop() {
-  //Note, velocity, channel
-  MIDI.sendNoteOn(80, 127, 1);
-  
+void loop() {  
   //Vector containing the data
   imu::Vector<3> euler = bno.getVector(Adafruit_BNO055::VECTOR_ACCELEROMETER);
 
@@ -128,6 +126,7 @@ void loop() {
   Serial.print(euler.z());
   Serial.println("\t\t");
   
+
   displayCalStatus();
   /* Optional: Display sensor status (debug only) */
   //displaySensorStatus();
@@ -135,6 +134,9 @@ void loop() {
 
   /* Wait the specified delay before requesting nex data */
   delay(BNO055_SAMPLERATE_DELAY_MS);
+
+  //Note, velocity, channel
+  MIDI.sendNoteOn(int(abs(euler.y()) * 10), 127, 1);
   //delay(20);
 }
 
